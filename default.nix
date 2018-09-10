@@ -5,6 +5,11 @@ self: super:
     packageOverrides = python-self: python-super:
 
     let
+      #
+      # urllib3, isodate & jmespath are available from nixpkgs-unstable also, yet in
+      # too old versions (or with buggy dependency metainfo).  Use compatible versions
+      # for azure-cli, yet don't override/touch main package tree.
+      #
       my_urllib3 = python-super.callPackage ./pkgs/development/python-modules/urllib3 {};
 
       my_isodate = python-super.callPackage ./pkgs/development/python-modules/isodate { };
