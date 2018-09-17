@@ -38,6 +38,8 @@ self: super:
     
     {
 
+      antlr4-python3-runtime = python-super.callPackage ./pkgs/development/python-modules/antlr4-python3-runtime {};
+
       applicationinsights = python-super.callPackage ./pkgs/development/python-modules/applicationinsights {};
 
       azure-batch = python-super.callPackage ./pkgs/development/python-modules/azure-batch { };
