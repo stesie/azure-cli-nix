@@ -14,6 +14,12 @@ buildPythonPackage rec {
     sha256 = "1z57iwig06z4bbwjvynh7vrppx3spqdx72gir2r97994dw20i432";
   };
 
+  postFixup = ''
+    rm "$out/lib/${python.libPrefix}/site-packages/azure/__init__.py"
+    rm "$out/lib/${python.libPrefix}/site-packages/azure/cli/__init__.py"
+    rm "$out/lib/${python.libPrefix}/site-packages/azure/cli/command_modules/__init__.py"
+  '';
+
   propagatedBuildInputs = [
     azure-cli-command-modules-nspkg
     azure-cli-core

@@ -1,4 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi, isPy27, pythonOlder
+{ stdenv, buildPythonPackage, fetchPypi, isPy27, pythonOlder, python
 , adal
 , azure-nspkg
 , cffi
@@ -15,6 +15,10 @@ buildPythonPackage rec {
     inherit pname version format;
     sha256 = "0k9l03wyql35irpa0vad2zgvp9l44y1xv621z6ym7y1fawp64axn";
   };
+
+  postFixup = ''
+    rm "$out/lib/${python.libPrefix}/site-packages/azure/__init__.py"
+  '';
 
   propagatedBuildInputs = [
     adal

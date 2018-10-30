@@ -1,4 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi
+{ stdenv, buildPythonPackage, fetchPypi, python
 , azure-cli-command-modules-nspkg
 , azure-cli-core
 , azure-mgmt-servicebus
@@ -14,6 +14,12 @@ buildPythonPackage rec {
     inherit pname version format;
     sha256 = "0is604fgclxkw1d234hkga3g8z6mdbz4v7z40r8xx2b1d12556bc";
   };
+
+  postFixup = ''
+    rm "$out/lib/${python.libPrefix}/site-packages/azure/__init__.py"
+    rm "$out/lib/${python.libPrefix}/site-packages/azure/cli/__init__.py"
+    rm "$out/lib/${python.libPrefix}/site-packages/azure/cli/command_modules/__init__.py"
+  '';
 
   propagatedBuildInputs = [
     azure-cli-command-modules-nspkg

@@ -1,4 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi
+{ stdenv, buildPythonPackage, fetchPypi, python
 , azure-cli-command-modules-nspkg
 , azure-cli-core
 , azure-mgmt-eventhub
@@ -14,6 +14,12 @@ buildPythonPackage rec {
     inherit pname version format;
     sha256 = "1v2zdwf7wz7qf9m97a7xd9m0inbax7wx5awcik2j8k6j2j8sbbll";
   };
+
+  postFixup = ''
+    rm "$out/lib/${python.libPrefix}/site-packages/azure/__init__.py"
+    rm "$out/lib/${python.libPrefix}/site-packages/azure/cli/__init__.py"
+    rm "$out/lib/${python.libPrefix}/site-packages/azure/cli/command_modules/__init__.py"
+  '';
 
   propagatedBuildInputs = [
     azure-cli-command-modules-nspkg

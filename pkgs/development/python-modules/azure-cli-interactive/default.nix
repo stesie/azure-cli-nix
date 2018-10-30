@@ -1,4 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi
+{ stdenv, buildPythonPackage, fetchPypi, python
 , applicationinsights
 , azure-cli-command-modules-nspkg
 , azure-cli-core
@@ -17,6 +17,12 @@ buildPythonPackage rec {
     inherit pname version format;
     sha256 = "1s312j4rzcgpbf0nyh4l39p4mqmi7p5l9y4g4595zdz61flw6gw4";
   };
+
+  postFixup = ''
+    rm "$out/lib/${python.libPrefix}/site-packages/azure/__init__.py"
+    rm "$out/lib/${python.libPrefix}/site-packages/azure/cli/__init__.py"
+    rm "$out/lib/${python.libPrefix}/site-packages/azure/cli/command_modules/__init__.py"
+  '';
 
   propagatedBuildInputs = [
     applicationinsights

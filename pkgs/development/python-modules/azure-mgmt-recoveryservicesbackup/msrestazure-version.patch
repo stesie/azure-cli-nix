@@ -1,0 +1,22 @@
+Index: azure-mgmt-recoveryservicesbackup-0.1.1/azure_mgmt_recoveryservicesbackup.egg-info/requires.txt
+===================================================================
+--- azure-mgmt-recoveryservicesbackup-0.1.1.orig/azure_mgmt_recoveryservicesbackup.egg-info/requires.txt
++++ azure-mgmt-recoveryservicesbackup-0.1.1/azure_mgmt_recoveryservicesbackup.egg-info/requires.txt
+@@ -1,3 +1,3 @@
+-msrestazure~=0.4.11
++msrestazure
+ azure-common~=1.1
+ azure-mgmt-nspkg>=2.0.0
+Index: azure-mgmt-recoveryservicesbackup-0.1.1/setup.py
+===================================================================
+--- azure-mgmt-recoveryservicesbackup-0.1.1.orig/setup.py
++++ azure-mgmt-recoveryservicesbackup-0.1.1/setup.py
+@@ -78,7 +78,7 @@ setup(
+     zip_safe=False,
+     packages=find_packages(),
+     install_requires=[
+-        'msrestazure~=0.4.11',
++        'msrestazure',
+         'azure-common~=1.1',
+     ],
+     cmdclass=cmdclass

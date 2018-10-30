@@ -119,11 +119,14 @@ buildPythonPackage rec {
 
   # filter azure-xxx-nspkg packages from $program_PYTHONPATH and wrap invoker script setting it
   postFixup = ''
+    rm "$out/lib/${python.libPrefix}/site-packages/azure/__init__.py"
+    rm "$out/lib/${python.libPrefix}/site-packages/azure/cli/__init__.py"
+
     IFS=: read -r -d "" -a path_array < <(printf '%s:\0' "$program_PYTHONPATH")
     filteredPythonPath=""
 
     for p in ''${path_array[@]}; do
-      if [[ ! "$p" =~ "-nspkg-" ]]; then
+      if [[ ! "$p" =~ "nspkg-" ]]; then
         filteredPythonPath="$filteredPythonPath"''${filteredPythonPath:+':'}"$p"
       fi
     done

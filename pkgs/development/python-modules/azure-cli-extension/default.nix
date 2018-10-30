@@ -5,14 +5,19 @@
 }:
 
 buildPythonPackage rec {
-  pname = "azure_cli_extension";
+  pname = "azure-cli-extension";
   version = "0.2.2";
-  format = "wheel";
 
   src = fetchPypi {
-    inherit pname version format;
-    sha256 = "0is6abswlrx2nri3c5kn332wv4mlqv7b19na4lzjh7p2xqf343a5";
+    inherit pname version;
+    sha256 = "1l4c0yn2yp6h4dlgny6abd8gmv27bzrrx1153y5w1g59bigbyx5w";
   };
+
+  # Hackily force build w/ wheel 0.31
+  postPatch = ''
+    sed -e '/azure-namespace-package/d' -i  setup.cfg
+    sed -e 's/wheel==0.30.0/wheel/' -i setup.py azure_cli_extension.egg-info/requires.txt
+  '';
 
   postFixup = ''
     rm "$out/lib/${python.libPrefix}/site-packages/azure/__init__.py"
