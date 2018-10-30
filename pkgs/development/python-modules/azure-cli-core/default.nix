@@ -20,6 +20,7 @@
 , requests
 , six
 , tabulate
+, wheel
 }:
 
 buildPythonPackage rec {
@@ -64,6 +65,7 @@ buildPythonPackage rec {
     requests
     six
     tabulate
+    wheel
   ];
 
   doCheck = false;

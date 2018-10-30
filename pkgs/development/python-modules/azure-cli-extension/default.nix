@@ -2,6 +2,7 @@
 , azure-cli-command-modules-nspkg
 , azure-cli-core
 , pip
+, wheel
 }:
 
 buildPythonPackage rec {
@@ -29,6 +30,7 @@ buildPythonPackage rec {
     azure-cli-command-modules-nspkg
     azure-cli-core
     pip
+    wheel
   ];
 
   doCheck = false;

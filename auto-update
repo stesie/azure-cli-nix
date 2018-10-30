@@ -118,7 +118,7 @@ getDeps() {
         -e 's/enum34//' \
         -e 's/pyreadline//' -e 's/unittest2//' \
         -e 's/typing//' -e 's/importlib//'     \
-        -e 's/;//' -e 's/wheel//' \
+        -e 's/;//' \
     | sort -u
 }
 
