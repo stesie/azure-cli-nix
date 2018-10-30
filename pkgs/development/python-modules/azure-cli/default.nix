@@ -99,7 +99,6 @@ buildPythonPackage rec {
     azure-cli-monitor
     azure-cli-network
     azure-cli-nspkg
-    azure-cli-nspkg
     azure-cli-policyinsights
     azure-cli-profile
     azure-cli-rdbms

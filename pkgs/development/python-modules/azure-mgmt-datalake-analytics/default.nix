@@ -14,6 +14,12 @@ buildPythonPackage rec {
     sha256 = "0w02j14kyvgrq3qwhnz2wrqjjjzr13vpcs1yazcpwgaqwa5h1srd";
   };
 
+  propagatedBuildInputs = [
+    azure-common
+    azure-mgmt-datalake-nspkg
+    msrestazure
+  ];
+
   patches = [
     ./msrestazure-version.patch
   ];
@@ -23,12 +29,6 @@ buildPythonPackage rec {
     sed -i azure_bdist_wheel.py \
       -e '1,483d' -e '/from wheel.bdist_wheel import bdist_wheel/ { s/^#//; }'
   '';
-
-  propagatedBuildInputs = [
-    azure-common
-    azure-mgmt-datalake-nspkg
-    msrestazure
-  ];
 
   doCheck = false;
 

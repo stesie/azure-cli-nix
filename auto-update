@@ -117,9 +117,9 @@ getDeps() {
         -e 's/requests-oauthlib/requests_oauthlib/' \
         -e 's/enum34//' \
         -e 's/pyreadline//' -e 's/unittest2//' \
-        -e 's/typing//' \
+        -e 's/typing//' -e 's/importlib//'     \
         -e 's/;//' -e 's/wheel//' \
-    | sort
+    | sort -u
 }
 
 createPackage() {
@@ -176,9 +176,6 @@ createPackage() {
   ) > "pkgs/development/python-modules/$dashname/default.nix"
 
 }
-
-handleModule "azure_mgmt_nspkg-3.0.2.dist-info"
-exit 0
 
 run "ls --color=never -1d *.dist-info" \
     | tr -d "\r" \
