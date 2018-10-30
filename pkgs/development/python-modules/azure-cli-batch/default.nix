@@ -1,25 +1,25 @@
 { stdenv, buildPythonPackage, fetchPypi
 , azure-batch
-, azure-cli-core
 , azure-cli-command-modules-nspkg
+, azure-cli-core
 , azure-mgmt-batch
 , azure-mgmt-keyvault
 }:
 
 buildPythonPackage rec {
   pname = "azure_cli_batch";
-  version = "3.2.4";
+  version = "3.4.1";
   format = "wheel";
 
   src = fetchPypi {
     inherit pname version format;
-    sha256 = "04hhqcxvx5yq5iawvcf0dannz342mjrzbanh859y6n62za6khgxj";
+    sha256 = "19z76ik99vl6i20jvad8mys5jhrcy181kqw18lwnmp8945ir1lfk";
   };
 
   propagatedBuildInputs = [
     azure-batch
-    azure-cli-core
     azure-cli-command-modules-nspkg
+    azure-cli-core
     azure-mgmt-batch
     azure-mgmt-keyvault
   ];

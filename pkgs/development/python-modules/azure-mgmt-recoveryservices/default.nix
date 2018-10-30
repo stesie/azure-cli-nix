@@ -5,22 +5,20 @@
 }:
 
 buildPythonPackage rec {
-  pname = "azure-mgmt-recoveryservices";
+  pname = "azure_mgmt_recoveryservices";
   version = "0.1.0";
+  format = "wheel";
 
   src = fetchPypi {
-    inherit pname version;
-    extension = "zip";
-    sha256 = "1vssmv6hyzz2ih5csjz7gyyk738vfb33wdlwf969yig2py7mp1xz";
+    inherit pname version format;
+    sha256 = "1ll7wq4m65jacdgjs75v7lky57wn9cp3zi4yv3d98xap40gkxf6a";
   };
 
-  # Fix build w/ wheel 0.31, see https://github.com/Azure/azure-storage-python/pull/443
-  postPatch = ''
-    sed -i azure_bdist_wheel.py \
-      -e '1,483d' -e '/from wheel.bdist_wheel import bdist_wheel/ { s/^#//; }'
-  '';
-
-  propagatedBuildInputs = [ azure-common azure-mgmt-nspkg msrestazure ];
+  propagatedBuildInputs = [
+    azure-common
+    azure-mgmt-nspkg
+    msrestazure
+  ];
 
   doCheck = false;
 

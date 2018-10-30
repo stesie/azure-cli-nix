@@ -8,12 +8,12 @@
 
 buildPythonPackage rec {
   pname = "azure_cli_iot";
-  version = "0.3.1";
+  version = "0.3.3";
   format = "wheel";
 
   src = fetchPypi {
     inherit pname version format;
-    sha256 = "0djwhiyr8nvbzc70ij9h2y0m2fhfyz79habw429ifgnwa29x244l";
+    sha256 = "1wv9rfky5h8870kwad4ilz6gs4fc8c3myfxq198cnkw18ivv8cv3";
   };
 
   propagatedBuildInputs = [

@@ -5,20 +5,14 @@
 }:
 
 buildPythonPackage rec {
-  pname = "azure-mgmt-cognitiveservices";
-  version = "1.0.0";
+  pname = "azure_mgmt_cognitiveservices";
+  version = "3.0.0";
+  format = "wheel";
 
   src = fetchPypi {
-    inherit pname version;
-    extension = "zip";
-    sha256 = "10hmw5xrnj2hlbb4j3pb4wnmibnh2vhjjf0yxczazhi7i1f4s4ls";
+    inherit pname version format;
+    sha256 = "1zzqydlbcp63wha0q4k005mp475c4gc9qc4r98acslk69gp0dd1n";
   };
-
-  # Fix build w/ wheel 0.31, see https://github.com/Azure/azure-storage-python/pull/443
-  postPatch = ''
-    sed -i azure_bdist_wheel.py \
-      -e '1,483d' -e '/from wheel.bdist_wheel import bdist_wheel/ { s/^#//; }'
-  '';
 
   propagatedBuildInputs = [
     azure-common

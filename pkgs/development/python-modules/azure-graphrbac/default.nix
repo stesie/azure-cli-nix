@@ -1,28 +1,24 @@
 { stdenv, buildPythonPackage, fetchPypi
 , azure-common
 , azure-nspkg
+, msrest
 , msrestazure
 }:
 
 buildPythonPackage rec {
-  pname = "azure-graphrbac";
-  version = "0.40.0";
+  pname = "azure_graphrbac";
+  version = "0.51.1";
+  format = "wheel";
 
   src = fetchPypi {
-    inherit pname version;
-    extension = "zip";
-    sha256 = "1qlf916s4q8m1irx03imj7c4w2jmssjld34b5zz7hj3pryyrfjzr";
+    inherit pname version format;
+    sha256 = "1zx1b6cxl9x3m6j2f53qylbzfx6ka8f1ar971cjrvypa9zfz3h29";
   };
-
-  # Fix build w/ wheel 0.31, see https://github.com/Azure/azure-storage-python/pull/443
-  postPatch = ''
-    sed -i azure_bdist_wheel.py \
-      -e '1,483d' -e '/from wheel.bdist_wheel import bdist_wheel/ { s/^#//; }'
-  '';
 
   propagatedBuildInputs = [
     azure-common
     azure-nspkg
+    msrest
     msrestazure
   ];
 

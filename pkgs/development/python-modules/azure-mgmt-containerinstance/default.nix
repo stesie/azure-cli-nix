@@ -1,22 +1,24 @@
 { stdenv, buildPythonPackage, fetchPypi
 , azure-common
 , azure-mgmt-nspkg
+, msrest
 , msrestazure
 }:
 
 buildPythonPackage rec {
-  pname = "azure-mgmt-containerinstance";
-  version = "1.0.0";
+  pname = "azure_mgmt_containerinstance";
+  version = "1.2.1";
+  format = "wheel";
 
   src = fetchPypi {
-    inherit pname version;
-    extension = "zip";
-    sha256 = "0by9kdag6gdhk7zqg7ab65l30l3bhlanlflknj228x9iah5ibj38";
+    inherit pname version format;
+    sha256 = "0p21gx5ifc2ywdgpn0r38y59whnwhkp22xm1r8h43g7w78yqipzx";
   };
 
   propagatedBuildInputs = [
     azure-common
     azure-mgmt-nspkg
+    msrest
     msrestazure
   ];
 

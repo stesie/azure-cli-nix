@@ -5,20 +5,14 @@
 }:
 
 buildPythonPackage rec {
-  pname = "azure-mgmt-authorization";
-  version = "0.40.0";
+  pname = "azure_mgmt_authorization";
+  version = "0.50.0";
+  format = "wheel";
 
   src = fetchPypi {
-    inherit pname version;
-    extension = "zip";
-    sha256 = "15w3rz7g3a30z3dcrgyphvsq7gn0bsy14386fv6g2087xlq8cx8x";
+    inherit pname version format;
+    sha256 = "14qhz5nm7j2yi0gqzx2rwkx1zfgd3cbknly3y9sv9cd87rv0919b";
   };
-
-  # Fix build w/ wheel 0.31, see https://github.com/Azure/azure-storage-python/pull/443
-  postPatch = ''
-    sed -i azure_bdist_wheel.py \
-      -e '1,483d' -e '/from wheel.bdist_wheel import bdist_wheel/ { s/^#//; }'
-  '';
 
   propagatedBuildInputs = [
     azure-common

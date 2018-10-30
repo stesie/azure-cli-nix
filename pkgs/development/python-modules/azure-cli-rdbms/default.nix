@@ -7,12 +7,12 @@
 
 buildPythonPackage rec {
   pname = "azure_cli_rdbms";
-  version = "0.3.1";
+  version = "0.3.2";
   format = "wheel";
 
   src = fetchPypi {
     inherit pname version format;
-    sha256 = "0lly8jq4zrglbwbmv4aws4q82wqfmxcp2jjvzj12ls6v2gbm24pd";
+    sha256 = "18kwfjbwd9vgm6lfcicy264p6r215k08cjbjmyd49734wfjcvxzf";
   };
 
   propagatedBuildInputs = [

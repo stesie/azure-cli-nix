@@ -64,6 +64,8 @@ self: super:
 
       azure-cli-billing = python-super.callPackage ./pkgs/development/python-modules/azure-cli-billing { };
 
+      azure-cli-botservice = python-super.callPackage ./pkgs/development/python-modules/azure-cli-botservice { };
+
       azure-cli-cdn = python-super.callPackage ./pkgs/development/python-modules/azure-cli-cdn { };
 
       azure-cli-cloud = python-super.callPackage ./pkgs/development/python-modules/azure-cli-cloud { };
@@ -103,15 +105,21 @@ self: super:
 
       azure-cli-find = python-super.callPackage ./pkgs/development/python-modules/azure-cli-find { };
 
+      azure-cli-hdinsight = python-super.callPackage ./pkgs/development/python-modules/azure-cli-hdinsight { };
+
       azure-cli-interactive = python-super.callPackage ./pkgs/development/python-modules/azure-cli-interactive {
         jmespath = my_jmespath;
       };
 
       azure-cli-iot = python-super.callPackage ./pkgs/development/python-modules/azure-cli-iot { };
 
+      azure-cli-iotcentral = python-super.callPackage ./pkgs/development/python-modules/azure-cli-iotcentral { };
+
       azure-cli-keyvault = python-super.callPackage ./pkgs/development/python-modules/azure-cli-keyvault { };
 
       azure-cli-lab = python-super.callPackage ./pkgs/development/python-modules/azure-cli-lab { };
+
+      azure-cli-maps = python-super.callPackage ./pkgs/development/python-modules/azure-cli-maps { };
 
       azure-cli-monitor = python-super.callPackage ./pkgs/development/python-modules/azure-cli-monitor { };
 
@@ -119,11 +127,15 @@ self: super:
 
       azure-cli-nspkg = python-super.callPackage ./pkgs/development/python-modules/azure-cli-nspkg { };
 
+      azure-cli-policyinsights = python-super.callPackage ./pkgs/development/python-modules/azure-cli-policyinsights { };
+
       azure-cli-profile = python-super.callPackage ./pkgs/development/python-modules/azure-cli-profile { };
 
       azure-cli-rdbms = python-super.callPackage ./pkgs/development/python-modules/azure-cli-rdbms { };
 
       azure-cli-redis = python-super.callPackage ./pkgs/development/python-modules/azure-cli-redis { };
+
+      azure-cli-relay = python-super.callPackage ./pkgs/development/python-modules/azure-cli-relay { };
 
       azure-cli-reservations = python-super.callPackage ./pkgs/development/python-modules/azure-cli-reservations { };
 
@@ -136,6 +148,8 @@ self: super:
       azure-cli-servicebus = python-super.callPackage ./pkgs/development/python-modules/azure-cli-servicebus { };
 
       azure-cli-servicefabric = python-super.callPackage ./pkgs/development/python-modules/azure-cli-servicefabric { };
+
+      azure-cli-signalr = python-super.callPackage ./pkgs/development/python-modules/azure-cli-signalr { };
 
       azure-cli-sql = python-super.callPackage ./pkgs/development/python-modules/azure-cli-sql { };
 
@@ -166,6 +180,8 @@ self: super:
       azure-mgmt-batchai = python-super.callPackage ./pkgs/development/python-modules/azure-mgmt-batchai { };
 
       azure-mgmt-billing = python-super.callPackage ./pkgs/development/python-modules/azure-mgmt-billing { };
+
+      azure-mgmt-botservice = python-super.callPackage ./pkgs/development/python-modules/azure-mgmt-botservice { };
 
       azure-mgmt-cdn = python-super.callPackage ./pkgs/development/python-modules/azure-mgmt-cdn { };
 
@@ -199,6 +215,10 @@ self: super:
 
       azure-mgmt-eventhub = python-super.callPackage ./pkgs/development/python-modules/azure-mgmt-eventhub { };
 
+      azure-mgmt-hdinsight = python-super.callPackage ./pkgs/development/python-modules/azure-mgmt-hdinsight { };
+
+      azure-mgmt-iotcentral = python-super.callPackage ./pkgs/development/python-modules/azure-mgmt-iotcentral { };
+
       azure-mgmt-iothub = python-super.callPackage ./pkgs/development/python-modules/azure-mgmt-iothub { };
 
       azure-mgmt-iothubprovisioningservices = python-super.callPackage ./pkgs/development/python-modules/azure-mgmt-iothubprovisioningservices { };
@@ -208,6 +228,8 @@ self: super:
       azure-mgmt-loganalytics = python-super.callPackage ./pkgs/development/python-modules/azure-mgmt-loganalytics { };
 
       azure-mgmt-managementgroups = python-super.callPackage ./pkgs/development/python-modules/azure-mgmt-managementgroups { };
+
+      azure-mgmt-maps = python-super.callPackage ./pkgs/development/python-modules/azure-mgmt-maps { };
 
       azure-mgmt-marketplaceordering = python-super.callPackage ./pkgs/development/python-modules/azure-mgmt-marketplaceordering { };
 
@@ -221,6 +243,8 @@ self: super:
 
       azure-mgmt-nspkg = python-super.callPackage ./pkgs/development/python-modules/azure-mgmt-nspkg { };
 
+      azure-mgmt-policyinsights = python-super.callPackage ./pkgs/development/python-modules/azure-mgmt-policyinsights { };
+
       azure-mgmt-rdbms = python-super.callPackage ./pkgs/development/python-modules/azure-mgmt-rdbms { };
 
       azure-mgmt-recoveryservices = python-super.callPackage ./pkgs/development/python-modules/azure-mgmt-recoveryservices { };
@@ -228,6 +252,8 @@ self: super:
       azure-mgmt-recoveryservicesbackup = python-super.callPackage ./pkgs/development/python-modules/azure-mgmt-recoveryservicesbackup { };
 
       azure-mgmt-redis = python-super.callPackage ./pkgs/development/python-modules/azure-mgmt-redis { };
+
+      azure-mgmt-relay = python-super.callPackage ./pkgs/development/python-modules/azure-mgmt-relay { };
 
       azure-mgmt-reservations = python-super.callPackage ./pkgs/development/python-modules/azure-mgmt-reservations { };
 
@@ -238,6 +264,8 @@ self: super:
       azure-mgmt-servicebus = python-super.callPackage ./pkgs/development/python-modules/azure-mgmt-servicebus { };
 
       azure-mgmt-servicefabric = python-super.callPackage ./pkgs/development/python-modules/azure-mgmt-servicefabric { };
+
+      azure-mgmt-signalr = python-super.callPackage ./pkgs/development/python-modules/azure-mgmt-signalr { };
 
       azure-mgmt-sql = python-super.callPackage ./pkgs/development/python-modules/azure-mgmt-sql { };
 

@@ -7,12 +7,12 @@
 
 buildPythonPackage rec {
   pname = "azure_cli_cosmosdb";
-  version = "0.2.1";
+  version = "0.2.2";
   format = "wheel";
 
   src = fetchPypi {
     inherit pname version format;
-    sha256 = "0ki6sc22fy0gy23j8nms2sd0r09gv1m4826mby8xm8wljygzjxpx";
+    sha256 = "1zp46ylzxz9fghjsmfpp354gapxa99yfvna2f19x69hfd4wwgb3p";
   };
 
   propagatedBuildInputs = [

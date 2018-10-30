@@ -1,15 +1,20 @@
-{ stdenv, buildPythonPackage, fetchPypi, azure-nspkg }:
+{ stdenv, buildPythonPackage, fetchPypi
+, azure-nspkg
+}:
 
 buildPythonPackage rec {
-  pname = "azure-cli-nspkg";
+  pname = "azure_cli_nspkg";
   version = "3.0.3";
+  format = "wheel";
 
   src = fetchPypi {
-    inherit pname version;
-    sha256 = "0f92mzbknc9l26b4f5f3m943a44q4qz1xjq2klnrmixrnnax2cqp";
+    inherit pname version format;
+    sha256 = "0b1dny3sabizf4x72dcanapr6pmsbqm7lpqias1qccaal0s5q29l";
   };
 
-  propagatedBuildInputs = [ azure-nspkg ];
+  propagatedBuildInputs = [
+    azure-nspkg
+  ];
 
   doCheck = false;
 

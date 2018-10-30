@@ -9,12 +9,12 @@
 
 buildPythonPackage rec {
   pname = "azure_cli_keyvault";
-  version = "2.2.1";
+  version = "2.2.5";
   format = "wheel";
 
   src = fetchPypi {
     inherit pname version format;
-    sha256 = "028wn78ddl9dscmsd7d62gmq23j4cl9blvvlbgiw9ac0jmjld377";
+    sha256 = "0l8yi0l90sr939w84smqj4vzzgsbf091v0czsprknxp0ci1ll77r";
   };
 
   propagatedBuildInputs = [

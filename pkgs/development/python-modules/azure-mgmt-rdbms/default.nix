@@ -1,22 +1,24 @@
 { stdenv, buildPythonPackage, fetchPypi
 , azure-common
 , azure-mgmt-nspkg
+, msrest
 , msrestazure
 }:
 
 buildPythonPackage rec {
-  pname = "azure-mgmt-rdbms";
-  version = "1.2.0";
+  pname = "azure_mgmt_rdbms";
+  version = "1.3.0";
+  format = "wheel";
 
   src = fetchPypi {
-    inherit pname version;
-    extension = "zip";
-    sha256 = "0qq22jrx34iz0dxinxscidgfaiy84vm4750il7flj4dczkrbwnkf";
+    inherit pname version format;
+    sha256 = "14sp30921fd5a0b8w9nnhad3h0i67lk830sc8s2acb0nmqbjvn7k";
   };
 
   propagatedBuildInputs = [
     azure-common
     azure-mgmt-nspkg
+    msrest
     msrestazure
   ];
 

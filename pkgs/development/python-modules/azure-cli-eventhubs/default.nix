@@ -7,12 +7,12 @@
 
 buildPythonPackage rec {
   pname = "azure_cli_eventhubs";
-  version = "0.2.1";
+  version = "0.3.0";
   format = "wheel";
 
   src = fetchPypi {
     inherit pname version format;
-    sha256 = "13hxqznrpgapcv8s3jw0zn1sf9piflhql4zmh49i4bnzlj8n3n08";
+    sha256 = "1v2zdwf7wz7qf9m97a7xd9m0inbax7wx5awcik2j8k6j2j8sbbll";
   };
 
   propagatedBuildInputs = [

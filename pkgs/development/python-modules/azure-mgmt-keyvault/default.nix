@@ -6,20 +6,14 @@
 }:
 
 buildPythonPackage rec {
-  pname = "azure-mgmt-keyvault";
-  version = "0.40.0";
+  pname = "azure_mgmt_keyvault";
+  version = "1.1.0";
+  format = "wheel";
 
   src = fetchPypi {
-    inherit pname version;
-    extension = "zip";
-    sha256 = "0c7x4357jrxm4w1pqp9008x039jpy8r11d5bhgxzfmwivjyaqzzv";
+    inherit pname version format;
+    sha256 = "00gcr1pnkxczfskyq5xrf7jaw9cwr0pxy61jmqxrxgva4fv9hqj0";
   };
-
-  # Fix build w/ wheel 0.31, see https://github.com/Azure/azure-storage-python/pull/443
-  postPatch = ''
-    sed -i azure_bdist_wheel.py \
-      -e '1,483d' -e '/from wheel.bdist_wheel import bdist_wheel/ { s/^#//; }'
-  '';
 
   propagatedBuildInputs = [
     azure-common

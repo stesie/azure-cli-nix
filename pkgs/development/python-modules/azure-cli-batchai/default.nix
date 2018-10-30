@@ -10,12 +10,12 @@
 
 buildPythonPackage rec {
   pname = "azure_cli_batchai";
-  version = "0.4.0";
+  version = "0.4.4";
   format = "wheel";
 
   src = fetchPypi {
     inherit pname version format;
-    sha256 = "1kacgxmzf23ja9nynkirwqpsdys11rb46k9bb4nhcflmmfg1wf56";
+    sha256 = "14aw947yvdszdancwyrh25vid5ajhn5c76ppm17fwkv9xwa7gidq";
   };
 
   propagatedBuildInputs = [

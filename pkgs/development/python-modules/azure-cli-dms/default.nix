@@ -7,12 +7,12 @@
 
 buildPythonPackage rec {
   pname = "azure_cli_dms";
-  version = "0.1.0";
+  version = "0.1.1";
   format = "wheel";
 
   src = fetchPypi {
     inherit pname version format;
-    sha256 = "043m110l4kw522d4ahyij6ma2c52c17p70rdd6x1h75k9mzdf5x0";
+    sha256 = "1x6zm2qc6clc21v2s2j6q4vk3lawi86wfym0yq99lz0jv7p0vzsb";
   };
 
   propagatedBuildInputs = [

@@ -1,19 +1,22 @@
 { stdenv, buildPythonPackage, fetchPypi
 , adal
-, keyring
 , msrest
 }:
 
 buildPythonPackage rec {
   pname = "msrestazure";
-  version = "0.4.34";
+  version = "0.5.0";
+  format = "wheel";
 
   src = fetchPypi {
-    inherit pname version;
-    sha256 = "1r3dkqd0isfgc21994xb5qk80skspv2rr4jdj2mr9c6mxh1lmjag";
+    inherit pname version format;
+    sha256 = "0q1nvwv3wi2ghpp9h4b0civfwy6w6n1h3cxh65dz18si0cyivwvk";
   };
 
-  propagatedBuildInputs = [ adal keyring msrest ];
+  propagatedBuildInputs = [
+    adal
+    msrest
+  ];
 
   doCheck = false;
 

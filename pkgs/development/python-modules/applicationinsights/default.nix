@@ -1,13 +1,18 @@
-{ stdenv, buildPythonPackage, fetchPypi }:
+{ stdenv, buildPythonPackage, fetchPypi
+}:
 
 buildPythonPackage rec {
   pname = "applicationinsights";
-  version = "0.11.6";
+  version = "0.11.7";
+  format = "wheel";
 
   src = fetchPypi {
-    inherit pname version;
-    sha256 = "0b5abcdxbakqxsha6427qjwgvgh7j8p57apw495rvzm6hcv9d302";
+    inherit pname version format;
+    sha256 = "1zhrl8bpwga4l906k83m9yrx4rh15hnmppvg4kcgs7ymz82yp8j2";
   };
+
+  propagatedBuildInputs = [
+  ];
 
   doCheck = false;
 

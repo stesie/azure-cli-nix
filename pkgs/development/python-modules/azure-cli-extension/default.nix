@@ -2,23 +2,17 @@
 , azure-cli-command-modules-nspkg
 , azure-cli-core
 , pip
-, wheel
 }:
 
 buildPythonPackage rec {
-  pname = "azure-cli-extension";
-  version = "0.2.1";
+  pname = "azure_cli_extension";
+  version = "0.2.2";
+  format = "wheel";
 
   src = fetchPypi {
-    inherit pname version;
-    sha256 = "06nygms3prjc3b5k07qkymplamva8bqalshp06f3g8a610adhwq2";
+    inherit pname version format;
+    sha256 = "0is6abswlrx2nri3c5kn332wv4mlqv7b19na4lzjh7p2xqf343a5";
   };
-
-  # Hackily force build w/ wheel 0.31
-  postPatch = ''
-    sed -e '/azure-namespace-package/d' -i  setup.cfg
-    sed -e 's/wheel==0.30.0/wheel/' -i setup.py azure_cli_extension.egg-info/requires.txt
-  '';
 
   postFixup = ''
     rm "$out/lib/${python.libPrefix}/site-packages/azure/__init__.py"
@@ -30,7 +24,6 @@ buildPythonPackage rec {
     azure-cli-command-modules-nspkg
     azure-cli-core
     pip
-    wheel
   ];
 
   doCheck = false;

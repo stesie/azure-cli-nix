@@ -5,13 +5,13 @@
 }:
 
 buildPythonPackage rec {
-  pname = "azure-batch";
-  version = "4.1.3";
+  pname = "azure_batch";
+  version = "5.1.0";
+  format = "wheel";
 
   src = fetchPypi {
-    inherit pname version;
-    extension = "zip";
-    sha256 = "0k1n73qpa2ns2kjsf9rjsv4b0vcdw6dggfr5c95igaxynpmwfwfd";
+    inherit pname version format;
+    sha256 = "0vm7l4kqg65byllqrrgvnpcxariis1qagc2cfxmh2yjbyy0g647w";
   };
 
   propagatedBuildInputs = [

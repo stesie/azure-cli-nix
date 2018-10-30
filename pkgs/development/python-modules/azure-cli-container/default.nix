@@ -1,8 +1,10 @@
 { stdenv, buildPythonPackage, fetchPypi
 , azure-cli-command-modules-nspkg
 , azure-cli-core
+, azure-mgmt-authorization
 , azure-mgmt-containerinstance
 , azure-mgmt-loganalytics
+, azure-mgmt-network
 , azure-mgmt-resource
 , colorama
 , pyyaml
@@ -11,19 +13,21 @@
 
 buildPythonPackage rec {
   pname = "azure_cli_container";
-  version = "0.3.2";
+  version = "0.3.7";
   format = "wheel";
 
   src = fetchPypi {
     inherit pname version format;
-    sha256 = "0aw5pmzjwm3m34p27smr9mfvrq0kan29n9mpn12rkqqgs34im3kn";
+    sha256 = "17rwwrwy33qf20s4h905ibpxhbfzgpjgr3qqrhs17q6lzr67dnfx";
   };
 
   propagatedBuildInputs = [
     azure-cli-command-modules-nspkg
     azure-cli-core
+    azure-mgmt-authorization
     azure-mgmt-containerinstance
     azure-mgmt-loganalytics
+    azure-mgmt-network
     azure-mgmt-resource
     colorama
     pyyaml

@@ -2,19 +2,19 @@
 , azure-common
 , azure-nspkg
 , cryptography
+, futures
 , python-dateutil
 , requests
-, futures
 }:
 
 buildPythonPackage rec {
   pname = "azure_multiapi_storage";
-  version = "0.2.1";
+  version = "0.2.2";
   format = "wheel";
 
   src = fetchPypi {
     inherit pname version format;
-    sha256 = "091qz206v9k6vb2lvr7shlhjsln711gplg8rf5f3wx6z35i2i5h4";
+    sha256 = "01cbdhsarsy3n0vg725xccj09a4fz1lbggchnka3lpj6mikkk9d3";
   };
 
   propagatedBuildInputs = [

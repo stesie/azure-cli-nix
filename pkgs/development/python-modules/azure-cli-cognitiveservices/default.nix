@@ -6,12 +6,12 @@
 
 buildPythonPackage rec {
   pname = "azure_cli_cognitiveservices";
-  version = "0.2.1";
+  version = "0.2.3";
   format = "wheel";
 
   src = fetchPypi {
     inherit pname version format;
-    sha256 = "0530lppkzxvzngi9v7p1n1v6bkfnq5nj4ngrcdij9k4qhr3drmqp";
+    sha256 = "1k171z887dny6g4ypgklwxn5lgv4qgv5n3pg57mchxgsmy74p5sn";
   };
 
   propagatedBuildInputs = [

@@ -5,20 +5,14 @@
 }:
 
 buildPythonPackage rec {
-  pname = "azure-mgmt-datalake-store";
-  version = "0.2.0";
+  pname = "azure_mgmt_datalake_store";
+  version = "0.5.0";
+  format = "wheel";
 
   src = fetchPypi {
-    inherit pname version;
-    extension = "zip";
-    sha256 = "1m0vn2mw5limh91a23n7s21mw568snb0lbqcsh94p0q0ivlwpp90";
+    inherit pname version format;
+    sha256 = "1pcmq1fix1g80jr2khg9hb79csc6ihrn3xwv4fdl7akyrlv85y9a";
   };
-
-  # Fix build w/ wheel 0.31, see https://github.com/Azure/azure-storage-python/pull/443
-  postPatch = ''
-    sed -i azure_bdist_wheel.py \
-      -e '1,483d' -e '/from wheel.bdist_wheel import bdist_wheel/ { s/^#//; }'
-  '';
 
   propagatedBuildInputs = [
     azure-common

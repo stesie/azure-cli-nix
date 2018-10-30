@@ -1,20 +1,26 @@
 { stdenv, buildPythonPackage, fetchPypi
 , azure-common
 , azure-mgmt-nspkg
+, msrest
 , msrestazure
 }:
 
 buildPythonPackage rec {
-  pname = "azure-mgmt-iothub";
-  version = "0.5.0";
+  pname = "azure_mgmt_iothub";
+  version = "0.6.0";
+  format = "wheel";
 
   src = fetchPypi {
-    inherit pname version;
-    extension = "zip";
-    sha256 = "1ghl5ln9w2zn2m61gjmd497wkzw0rzg409vxx6hg0i38xm182f08";
+    inherit pname version format;
+    sha256 = "0favdj6n58sm89v2ayhbcn9wk5fdf6gdin3f03qdy47fpq6nnnlw";
   };
 
-  propagatedBuildInputs = [ azure-common azure-mgmt-nspkg msrestazure ];
+  propagatedBuildInputs = [
+    azure-common
+    azure-mgmt-nspkg
+    msrest
+    msrestazure
+  ];
 
   doCheck = false;
 
