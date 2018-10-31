@@ -1,23 +1,33 @@
 { stdenv, buildPythonPackage, fetchPypi
+, aiodns
+, aiohttp
+, certifi
+, isodate
 , requests
 , requests_oauthlib
-, isodate
-, certifi
 }:
 
 buildPythonPackage rec {
   pname = "msrest";
-  version = "0.4.29";
+  version = "0.6.1";
+  format = "wheel";
 
   src = fetchPypi {
-    inherit pname version;
-    sha256 = "0ifbcihdwd5rpd92r9by6s4imj422crj8vn6gpwbzixpff0ma2nf";
+    inherit pname version format;
+    sha256 = "06gfy360plqbzhxni2d7xvn0cv9k15bjvfq3ismk04l2wh095xqm";
   };
 
   # TODO (stesie): dependencies for python < 3.5
   # Requires-Dist: enum34 (>=1.0.4); python_version<'3.4'
   # Requires-Dist: typing; python_version<'3.5'
-  propagatedBuildInputs = [ requests requests_oauthlib isodate certifi ];
+  propagatedBuildInputs = [
+    aiodns
+    aiohttp
+    certifi
+    isodate
+    requests
+    requests_oauthlib
+  ];
 
   doCheck = false;
 

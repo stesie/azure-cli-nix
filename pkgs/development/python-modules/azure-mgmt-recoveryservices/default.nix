@@ -14,13 +14,21 @@ buildPythonPackage rec {
     sha256 = "1vssmv6hyzz2ih5csjz7gyyk738vfb33wdlwf969yig2py7mp1xz";
   };
 
+  propagatedBuildInputs = [
+    azure-common
+    azure-mgmt-nspkg
+    msrestazure
+  ];
+
+  patches = [
+    ./msrestazure-version.patch
+  ];
+
   # Fix build w/ wheel 0.31, see https://github.com/Azure/azure-storage-python/pull/443
   postPatch = ''
     sed -i azure_bdist_wheel.py \
       -e '1,483d' -e '/from wheel.bdist_wheel import bdist_wheel/ { s/^#//; }'
   '';
-
-  propagatedBuildInputs = [ azure-common azure-mgmt-nspkg msrestazure ];
 
   doCheck = false;
 

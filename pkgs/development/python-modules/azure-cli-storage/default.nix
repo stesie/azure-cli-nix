@@ -1,4 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi
+{ stdenv, buildPythonPackage, fetchPypi, python
 , azure-cli-command-modules-nspkg
 , azure-cli-core
 , azure-mgmt-storage
@@ -7,13 +7,19 @@
 
 buildPythonPackage rec {
   pname = "azure_cli_storage";
-  version = "2.1.0";
+  version = "2.2.3";
   format = "wheel";
 
   src = fetchPypi {
     inherit pname version format;
-    sha256 = "0vx8f9k4kc2ljn31n94zywxsr86f9s5c83q9mz6qksqiy9y2ymyj";
+    sha256 = "1srww6zr7aa4llbpkhz97k9ia55bqwz08f0qr11z8gisg5qn7nqz";
   };
+
+  postFixup = ''
+    rm "$out/lib/${python.libPrefix}/site-packages/azure/__init__.py"
+    rm "$out/lib/${python.libPrefix}/site-packages/azure/cli/__init__.py"
+    rm "$out/lib/${python.libPrefix}/site-packages/azure/cli/command_modules/__init__.py"
+  '';
 
   propagatedBuildInputs = [
     azure-cli-command-modules-nspkg

@@ -1,4 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi
+{ stdenv, buildPythonPackage, fetchPypi, python
 , azure-cli-command-modules-nspkg
 , azure-cli-core
 , azure-datalake-store
@@ -7,13 +7,19 @@
 
 buildPythonPackage rec {
   pname = "azure_cli_dls";
-  version = "0.1.1";
+  version = "0.1.4";
   format = "wheel";
 
   src = fetchPypi {
     inherit pname version format;
-    sha256 = "03mzb9k0yn6pgiarw5clmcw7h4dajlwml6mnlpnwzzwlfqpjlb4p";
+    sha256 = "0qfcghcnvs3mnqf2iphmy49g6ljrs7b024l8wlvlm74sl4flh14a";
   };
+
+  postFixup = ''
+    rm "$out/lib/${python.libPrefix}/site-packages/azure/__init__.py"
+    rm "$out/lib/${python.libPrefix}/site-packages/azure/cli/__init__.py"
+    rm "$out/lib/${python.libPrefix}/site-packages/azure/cli/command_modules/__init__.py"
+  '';
 
   propagatedBuildInputs = [
     azure-cli-command-modules-nspkg

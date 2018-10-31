@@ -10,16 +10,23 @@
 
 buildPythonPackage rec {
   pname = "knack";
-  version = "0.4.1";
+  version = "0.4.4";
+  format = "wheel";
 
   src = fetchPypi {
-    inherit pname version;
-    sha256 = "182rp3y6y8b0lbsrpi9k5qvg9q7p1qffqp79sv9izygsq9lzsids";
+    inherit pname version format;
+    sha256 = "18r88z4zr50xdjjivvn7vpdqzgyh9rr0z1x25lmwsfpv0sgzw75j";
   };
 
-  # TODO (stesie): dependency enum34 for python < 3.4
-  propagatedBuildInputs = [ argcomplete colorama jmespath pygments pyyaml
-                            six tabulate ];
+  propagatedBuildInputs = [
+    argcomplete
+    colorama
+    jmespath
+    pygments
+    pyyaml
+    six
+    tabulate
+  ];
 
   doCheck = false;
 

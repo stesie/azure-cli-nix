@@ -1,5 +1,6 @@
-{ stdenv, buildPythonPackage, fetchPypi, isPy27, pythonOlder
+{ stdenv, buildPythonPackage, fetchPypi, isPy27, pythonOlder, python
 , adal
+, azure-nspkg
 , cffi
 , futures
 , pathlib2
@@ -7,15 +8,23 @@
 
 buildPythonPackage rec {
   pname = "azure_datalake_store";
-  version = "0.0.27";
+  version = "0.0.34";
   format = "wheel";
 
   src = fetchPypi {
     inherit pname version format;
-    sha256 = "1h9073jzc2jm9lj345hx59y9rg4qp6fyislq1324hjy5vmvjpis2";
+    sha256 = "0k9l03wyql35irpa0vad2zgvp9l44y1xv621z6ym7y1fawp64axn";
   };
 
-  propagatedBuildInputs = [ adal cffi ]
+  postFixup = ''
+    rm "$out/lib/${python.libPrefix}/site-packages/azure/__init__.py"
+  '';
+
+  propagatedBuildInputs = [
+    adal
+    azure-nspkg
+    cffi
+  ]
     ++ stdenv.lib.optional (isPy27) futures
     ++ stdenv.lib.optional (pythonOlder "3.4") pathlib2;
 

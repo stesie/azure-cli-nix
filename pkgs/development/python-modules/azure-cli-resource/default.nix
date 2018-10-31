@@ -1,4 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi
+{ stdenv, buildPythonPackage, fetchPypi, python
 , azure-cli-command-modules-nspkg
 , azure-cli-core
 , azure-mgmt-authorization
@@ -7,13 +7,19 @@
 
 buildPythonPackage rec {
   pname = "azure_cli_resource";
-  version = "2.0.32";
+  version = "2.1.5";
   format = "wheel";
 
   src = fetchPypi {
     inherit pname version format;
-    sha256 = "0happxaw0pkysszh2s94wbklinrd7wv6xzvs210vyzx6sf2n88fa";
+    sha256 = "0skiv4wdy1vk6j5mlbbvsrn11j8sn5s07r02csqjcqzb6q5fs0kr";
   };
+
+  postFixup = ''
+    rm "$out/lib/${python.libPrefix}/site-packages/azure/__init__.py"
+    rm "$out/lib/${python.libPrefix}/site-packages/azure/cli/__init__.py"
+    rm "$out/lib/${python.libPrefix}/site-packages/azure/cli/command_modules/__init__.py"
+  '';
 
   propagatedBuildInputs = [
     azure-cli-command-modules-nspkg

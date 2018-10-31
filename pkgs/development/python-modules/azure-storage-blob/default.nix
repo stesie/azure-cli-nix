@@ -6,19 +6,14 @@
 }:
 
 buildPythonPackage rec {
-  pname = "azure-storage-blob";
-  version = "1.1.0";
+  pname = "azure_storage_blob";
+  version = "1.3.1";
+  format = "wheel";
 
   src = fetchPypi {
-    inherit pname version;
-    sha256 = "0rhwi4jwk261c7ljb1pzb4y9i2rbzhk1pznzifjrf3vdwchdrp2g";
+    inherit pname version format;
+    sha256 = "1p1ch0sw6ipvxix2dbxrn8jlkc5703mhfr0zv4q5i7vqznmmi01h";
   };
-
-  # Fix build w/ wheel 0.31, see https://github.com/Azure/azure-storage-python/pull/443
-  postPatch = ''
-    sed -i azure_bdist_wheel.py \
-      -e '1,483d' -e '/from wheel.bdist_wheel import bdist_wheel/ { s/^#//; }'
-  '';
 
   propagatedBuildInputs = [
     azure-common

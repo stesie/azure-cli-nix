@@ -7,11 +7,11 @@
 
 buildPythonPackage rec {
   pname = "azure-cli-extension";
-  version = "0.2.1";
+  version = "0.2.2";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "06nygms3prjc3b5k07qkymplamva8bqalshp06f3g8a610adhwq2";
+    sha256 = "1l4c0yn2yp6h4dlgny6abd8gmv27bzrrx1153y5w1g59bigbyx5w";
   };
 
   # Hackily force build w/ wheel 0.31

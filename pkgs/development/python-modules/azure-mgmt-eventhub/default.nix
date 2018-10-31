@@ -6,20 +6,14 @@
 }:
 
 buildPythonPackage rec {
-  pname = "azure-mgmt-eventhub";
-  version = "1.2.0";
+  pname = "azure_mgmt_eventhub";
+  version = "2.1.0";
+  format = "wheel";
 
   src = fetchPypi {
-    inherit pname version;
-    extension = "zip";
-    sha256 = "05bjyyc3d8ahakb5xy3pc5b1i8nzwy569wixg8wvy7x9sz61d8rh";
+    inherit pname version format;
+    sha256 = "10d2f995y31b14gjprvds6jg075ch9sj08fdl7mwz6nshyljfizn";
   };
-
-  # Fix build w/ wheel 0.31, see https://github.com/Azure/azure-storage-python/pull/443
-  postPatch = ''
-    sed -i azure_bdist_wheel.py \
-      -e '1,483d' -e '/from wheel.bdist_wheel import bdist_wheel/ { s/^#//; }'
-  '';
 
   propagatedBuildInputs = [
     azure-common

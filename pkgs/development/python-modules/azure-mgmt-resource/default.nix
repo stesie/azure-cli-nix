@@ -5,16 +5,20 @@
 }:
 
 buildPythonPackage rec {
-  pname = "azure-mgmt-resource";
-  version = "2.0.0rc2";
+  pname = "azure_mgmt_resource";
+  version = "2.0.0";
+  format = "wheel";
 
   src = fetchPypi {
-    inherit pname version;
-    extension = "zip";
-    sha256 = "1anh3m73ppfs12x9cngzgpkp4xqsms52iy2vyaazag9jns9j8709";
+    inherit pname version format;
+    sha256 = "136dav3zj43w59ams02qj6dcjfmbyq781r3yjaq4zw422i965kcd";
   };
 
-  propagatedBuildInputs = [ azure-common azure-mgmt-nspkg msrestazure ];
+  propagatedBuildInputs = [
+    azure-common
+    azure-mgmt-nspkg
+    msrestazure
+  ];
 
   doCheck = false;
 

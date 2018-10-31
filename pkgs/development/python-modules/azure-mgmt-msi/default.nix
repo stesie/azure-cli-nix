@@ -5,20 +5,14 @@
 }:
 
 buildPythonPackage rec {
-  pname = "azure-mgmt-msi";
-  version = "0.1.0";
+  pname = "azure_mgmt_msi";
+  version = "0.2.0";
+  format = "wheel";
 
   src = fetchPypi {
-    inherit pname version;
-    extension = "zip";
-    sha256 = "0n486bx7ag79ycbc51b1c1dxla130gnhwck8sns69dskhjydgvjk";
+    inherit pname version format;
+    sha256 = "09m0hkqagp8pmn7h7yxch0h0i24s3k1vf9l5d07clkmzacbyd2g9";
   };
-
-  # Fix build w/ wheel 0.31, see https://github.com/Azure/azure-storage-python/pull/443
-  postPatch = ''
-    sed -i azure_bdist_wheel.py \
-      -e '1,483d' -e '/from wheel.bdist_wheel import bdist_wheel/ { s/^#//; }'
-  '';
 
   propagatedBuildInputs = [
     azure-common

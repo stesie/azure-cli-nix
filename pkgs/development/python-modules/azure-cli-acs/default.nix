@@ -1,4 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi
+{ stdenv, buildPythonPackage, fetchPypi, python
 , azure-cli-command-modules-nspkg
 , azure-cli-core
 , azure-graphrbac
@@ -14,13 +14,19 @@
 
 buildPythonPackage rec {
   pname = "azure_cli_acs";
-  version = "2.0.34";
+  version = "2.3.9";
   format = "wheel";
 
   src = fetchPypi {
     inherit pname version format;
-    sha256 = "1cbgbn3iii8bxy844kvgzrgpy8b89djj69gxmj4m7vlfvzjcawgc";
+    sha256 = "0jm8mjsdz39ryabpvxi8vpldc5gg6x3zlpacy9913z02q8c94102";
   };
+
+  postFixup = ''
+    rm "$out/lib/${python.libPrefix}/site-packages/azure/__init__.py"
+    rm "$out/lib/${python.libPrefix}/site-packages/azure/cli/__init__.py"
+    rm "$out/lib/${python.libPrefix}/site-packages/azure/cli/command_modules/__init__.py"
+  '';
 
   propagatedBuildInputs = [
     azure-cli-command-modules-nspkg

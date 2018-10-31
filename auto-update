@@ -1,0 +1,185 @@
+#!/usr/bin/env bash
+
+set -e
+set -o pipefail
+
+run() {
+  docker run --rm microsoft/azure-cli sh -c "cd /usr/local/lib/python3.6/site-packages && $*"
+}
+
+handleModule() {
+  dirname="$1"
+  name="${dirname%.dist-info}"
+  pname="${name%-*}"
+  version="${name#*-}"
+  dashname="${pname//_/-}"
+
+  echo ""
+  echo "----------------------------------------------"
+  echo ""
+  echo "Processing Module $pname at $version"
+
+  if [ -d "pkgs/development/python-modules/$dashname" ]; then
+    currentVersion="$(getCurrentVersion "$dashname")"
+    echo "Module already exists, current version is $currentVersion ..."
+
+    if [ "$currentVersion" = "$version" ]; then
+      echo "Nothing to do."
+    else
+      echo "Updating ..."
+      updateVersion "$dashname" "$version"
+      updateHash "$pname" "$version"
+    fi
+
+    updateDependencies "$pname" "$version"
+  else
+    echo "Module is MISSING ..."
+    createPackage "$pname" "$version"
+
+  fi
+
+}
+
+getCurrentVersion() {
+  dashname="$1"
+  sed -n '/version =/ { s/";//; s/.*"//; p }' "pkgs/development/python-modules/$dashname/default.nix"
+}
+
+updateVersion() {
+  dashname="$1"
+  version="$2"
+  sed -i -e '/version =/ { s/".*"/"'"$version"'"/  }'  "pkgs/development/python-modules/$dashname/default.nix"
+}
+
+getHash() {
+  pname="$1"
+  dashname="${pname//_/-}"
+  version="$2"
+
+  python="py2.py3"
+
+  if grep -qe 'python = "py3";' "pkgs/development/python-modules/$dashname/default.nix"; then
+    python="py3";
+  fi
+
+  nix-prefetch-url "https://files.pythonhosted.org/packages/$python/${pname:0:1}/$pname/$pname-$version-$python-none-any.whl"
+}
+
+updateHash() {
+  pname="$1"
+  dashname="${pname//_/-}"
+  version="$2"
+
+  sed -i -e '/sha256 =/ { s/".*"/"'"$(getHash "$pname" "$version")"'"/  }' "pkgs/development/python-modules/$dashname/default.nix"
+}
+
+updateDependencies() {
+  pname="$1"
+  dashname="${pname//_/-}"
+  version="$2"
+
+  deps="$(getDeps "$pname" "$version")"
+
+  (
+    # copy over old "base" dependencies
+    sed -ne '1p' < "pkgs/development/python-modules/$dashname/default.nix"
+
+    # insert dependency data as per module's metadata
+    for d in $deps; do
+      echo ", $d"
+    done
+
+    # copy stuff until propagatedBuildInputs, ...
+    sed -ne '/^}:/,/propagatedBuildInputs/ { p }' < "pkgs/development/python-modules/$dashname/default.nix"
+
+    # ... and replace these
+    for d in $deps; do
+      if [ "$d" != "futures" ] && [ "$d" != "pathlib2" ]; then
+        echo "    $d"
+      fi
+    done
+
+    # ... copy the rest of the file (@todo anchor is pretty weak)
+    sed -ne '/^  ]/,$ { p }' < "pkgs/development/python-modules/$dashname/default.nix"
+  ) > "pkgs/development/python-modules/$dashname/default.nix.new"
+
+  mv -f "pkgs/development/python-modules/$dashname/default.nix.new" "pkgs/development/python-modules/$dashname/default.nix"
+}
+
+getDeps() {
+  pname="$1"
+  version="$2"
+
+  run awk "\"/^Requires-Dist:/ { print \\\$2 }\"" "$pname-$version.dist-info/METADATA" \
+    | sed -e 's/pyOpenSSL/pyopenssl/' -e 's/urllib3\[secure\]/urllib3/' \
+        -e 's/websocket-client/websocket_client/' -e 's/PyJWT/pyjwt/'   \
+        -e 's/prompt-toolkit/prompt_toolkit/'       \
+        -e 's/requests-oauthlib/requests_oauthlib/' \
+        -e 's/enum34//' \
+        -e 's/pyreadline//' -e 's/unittest2//' \
+        -e 's/typing//' -e 's/importlib//'     \
+        -e 's/;//' \
+    | sort -u
+}
+
+createPackage() {
+  pname="$1"
+  dashname="${pname//_/-}"
+  version="$2"
+
+  mkdir -p "pkgs/development/python-modules/$dashname"
+
+  deps="$(getDeps "$pname" "$version")"
+
+  (
+    echo "{ stdenv, buildPythonPackage, fetchPypi, python"
+
+    # insert dependency data as per module's metadata
+    for d in $deps; do
+      echo ", $d"
+    done
+
+    echo "}:"
+    echo ""
+    echo "buildPythonPackage rec {"
+    echo "  pname = \"$pname\";"
+    echo "  version = \"$version\";"
+    echo "  format = \"wheel\";"
+    echo ""
+    echo "  src = fetchPypi {"
+    echo "    inherit pname version format;"
+    echo "    sha256 = \"$(getHash "$pname" "$version")\";"
+    echo "  };"
+    echo ""
+    echo "  propagatedBuildInputs = ["
+
+    for d in $deps; do
+      echo "    $d"
+    done
+
+    echo "  ];"
+    echo ""
+    echo "  doCheck = false;"
+    echo "  "
+    echo "  meta = with stdenv.lib; {"
+
+    summary="$(run grep -e ^Summary: "$pname-$version.dist-info/METADATA" | cut -c10-)"
+    echo "    description = \"$summary\";"
+
+    url="$(run grep -e ^Home-page: "$pname-$version.dist-info/METADATA" | cut -c12-)"
+    echo "    homepage = $url;"
+
+    echo "    license = licenses.mit;"
+    echo "    maintainers = with maintainers; [ stesie ];"
+    echo "  };"
+    echo "}"
+  ) > "pkgs/development/python-modules/$dashname/default.nix"
+
+}
+
+run "ls --color=never -1d *.dist-info" \
+    | tr -d "\\r" \
+    | grep -e ^applicationinsights- -e ^azure -e ^humanfriendly -e ^knack -e ^msrest \
+    | while read -r name; do
+    handleModule "$name"
+done

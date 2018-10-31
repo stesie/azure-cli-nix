@@ -6,20 +6,14 @@
 }:
 
 buildPythonPackage rec {
-  pname = "azure-mgmt-containerservice";
-  version = "3.0.1";
+  pname = "azure_mgmt_containerservice";
+  version = "4.2.2";
+  format = "wheel";
 
   src = fetchPypi {
-    inherit pname version;
-    extension = "zip";
-    sha256 = "0xjfrqk75nva8d1glfppvgqsd9cvfv4jhf8365nwfirsa2g75gya";
+    inherit pname version format;
+    sha256 = "1jqs497gq9xifs81kjqkpi8sg2n8g7iwpmr57plwxnqlvv15pw9g";
   };
-
-  # Fix build w/ wheel 0.31, see https://github.com/Azure/azure-storage-python/pull/443
-  postPatch = ''
-    sed -i azure_bdist_wheel.py \
-      -e '1,483d' -e '/from wheel.bdist_wheel import bdist_wheel/ { s/^#//; }'
-  '';
 
   propagatedBuildInputs = [
     azure-common

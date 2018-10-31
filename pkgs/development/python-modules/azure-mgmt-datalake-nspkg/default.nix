@@ -3,16 +3,19 @@
 }:
 
 buildPythonPackage rec {
-  pname = "azure-mgmt-datalake-nspkg";
-  version = "2.0.0";
+  pname = "azure_mgmt_datalake_nspkg";
+  version = "3.0.1";
+  format = "wheel";
 
   src = fetchPypi {
-    inherit pname version;
-    extension = "zip";
-    sha256 = "0dyac114yl4jycj0j9w9pgna0cfy9yccripr67212gms3957gf18";
+    inherit pname version format;
+    python = "py3";
+    sha256 = "1i123farkcrr7nmk9b24bznypvwc16ih7yy5k4hi31svql9zmiia";
   };
 
-  propagatedBuildInputs = [ azure-mgmt-nspkg ];
+  propagatedBuildInputs = [
+    azure-mgmt-nspkg
+  ];
 
   doCheck = false;
 

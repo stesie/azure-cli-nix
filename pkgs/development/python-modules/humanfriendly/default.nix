@@ -5,13 +5,16 @@
 buildPythonPackage rec {
   pname = "humanfriendly";
   version = "4.16.1";
+  format = "wheel";
 
   src = fetchPypi {
-    inherit pname version;
-    sha256 = "0ywzfpg7b1k6s6m9yps4yfs6l7pjp4rcrp8vnhapynbb0np9h7pd";
+    inherit pname version format;
+    sha256 = "0qs3ck0zn98cnmafnwrby7r8qbj5d3jdrwkb4l3339s1pjp6l6a9";
   };
 
-  propagatedBuildInputs = [ monotonic ];
+  propagatedBuildInputs = [
+    monotonic
+  ];
 
   doCheck = false;
 
