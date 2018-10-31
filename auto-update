@@ -94,7 +94,7 @@ updateDependencies() {
 
     # ... and replace these
     for d in $deps; do
-      if [ "$d" != "futures" -a "$d" != "pathlib2" ]; then
+      if [ "$d" != "futures" ] && [ "$d" != "pathlib2" ]; then
         echo "    $d"
       fi
     done
@@ -178,7 +178,7 @@ createPackage() {
 }
 
 run "ls --color=never -1d *.dist-info" \
-    | tr -d "\r" \
+    | tr -d "\\r" \
     | grep -e ^applicationinsights- -e ^azure -e ^humanfriendly -e ^knack -e ^msrest \
     | while read -r name; do
     handleModule "$name"
